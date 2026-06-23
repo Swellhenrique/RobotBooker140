@@ -14,6 +14,14 @@ Variables      ../../resources/variables.py
 Suite Setup    Create Token    ${url}
 
 *** Test Cases ***
+
+Ping Server
+    ${response}    GET    url=${url}/ping
+    ${status_code}    Set Variable    ${response.status_code}
+    Log To Console    ${status_code}
+
+    Status Should Be    201
+
 Create Booking
     # header é opcional neste caso
     ${headers}    Create Dictionary    Content-type=${content_type}     
@@ -80,7 +88,7 @@ Update Booking
 
 Partial Update Booking
     GET booking Id    ${url}    ${firstname}    ${lastname}
-    ${headers}    Create Dictionary    Cookie=token=${token}    Contente-type=${content_type}
+    ${headers}    Create Dictionary    Cookie=token=${token}    Content-type=${content_type}
 
     ${body}    Create Dictionary    additionalneeds=Dinner
 
